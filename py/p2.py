@@ -15,69 +15,30 @@ class Solution(object):
         :rtype: ListNode
         """
         carry_bit = 0
-        sum = 0
-        head = None
-        temp = None
-        while (l1 != None and l2 != None):
-            sum = (l1.val + l2.val + carry_bit) % 10
-            carry_bit = (l1.val + l2.val + carry_bit) / 10
-            node = ListNode(sum)
+        prev = head = None
+        while l1 or l2 or carry_bit:
+            sum = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry_bit
+            val, carry_bit = sum % 10, sum / 10
+            node = ListNode(val)
             if not head:
-                head = node
-                temp = head
+                prev = head = node
             else:
-                temp.next = node
-                temp = temp.next
-            l1 = l1.next
-            l2 = l2.next
-
-        while (l1 != None):
-            sum = (l1.val + carry_bit) % 10
-            carry_bit = (l1.val + carry_bit) / 10
-            node = ListNode(sum)
-            if not head:
-                head = node
-                temp = head
-            else:
-                temp.next = node
-                temp = temp.next
-            l1 = l1.next
-
-        while (l2 != None):
-            sum = (l2.val + carry_bit) % 10
-            carry_bit = (l2.val + carry_bit) / 10
-            node = ListNode(sum)
-            if not head:
-                head = node
-                temp = head
-            else:
-                temp.next = node
-                temp = temp.next
-
-            l2 = l2.next
-
-        if carry_bit:
-            node = ListNode(carry_bit)
-            if not head:
-                head = node
-                temp = head
-            else:
-                temp.next = node
-                temp = temp.next
-
+                prev.next = node
+                prev = prev.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
         return head
 
 def gen_list(arr):
     head = None
-    temp = None
+    prev = None
     for x in arr:
         node = ListNode(x)
         if not head:
-            head = node
-            temp = head
+            prev = head = node
         else:
-            temp.next = node
-            temp = temp.next
+            prev.next = node
+            prev = prev.next
     return head
 
 def disp_list(l):
