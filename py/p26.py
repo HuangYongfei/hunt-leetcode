@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # 总结:
+# 1. 相邻的两个数字不相等，计数加一
+# 2. 同时在对应位置的数字替换为新的值（有点类似插入排序的味道）
 
 class Solution(object):
     def removeDuplicates(self, nums):
@@ -22,6 +24,18 @@ class Solution(object):
             else:
                 index += 1
                 nums.remove(nums[x + 1 - index])
+        return count
+
+    def removeDuplicatesOpt(self, nums):
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return 1
+        count = 1
+        for x in range(1, len(nums)):
+            if nums[x] != nums[x-1]:
+                nums[count] = nums[x]
+                count += 1
         return count
 
     def removeDuplicatesJustLength(self, nums):
