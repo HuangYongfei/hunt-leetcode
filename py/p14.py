@@ -28,6 +28,21 @@ class Solution(object):
                 break
         return ''.join(r_s)
 
+    def longestCommonPrefixOpt(self, strs):
+        if len(strs) == 0:
+            return ''
+
+        r_s = []
+        sorted_strs = sorted(strs)
+        s1 = sorted_strs[0]
+        s2 = sorted_strs[len(sorted_strs) - 1]
+        for i in range(len(s1)):
+            if len(s2) > i and s2[i] == s1[i]:
+                r_s.append(s1[i])
+            else:
+                return ''.join(r_s)
+        return ''.join(r_s)
+
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -37,6 +52,12 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(Solution().longestCommonPrefix(['abc', 'ab', 'a']), 'a')
         self.assertEqual(Solution().longestCommonPrefix(['abc', 'ab', 'ab']), 'ab')
         self.assertEqual(Solution().longestCommonPrefix(['abcd', 'adb', 'adb']), 'a')
+
+        self.assertEqual(Solution().longestCommonPrefixOpt(['abc']), 'abc')
+        self.assertEqual(Solution().longestCommonPrefixOpt([]), '')
+        self.assertEqual(Solution().longestCommonPrefixOpt(['abc', 'ab', 'a']), 'a')
+        self.assertEqual(Solution().longestCommonPrefixOpt(['abc', 'ab', 'ab']), 'ab')
+        self.assertEqual(Solution().longestCommonPrefixOpt(['abcd', 'adb', 'adb']), 'a')
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestSolution)
 unittest.TextTestRunner(verbosity=2).run(suite)
