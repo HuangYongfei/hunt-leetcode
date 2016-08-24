@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# 总结：
+# 参考p15
+
 class Solution(object):
     def threeSumClosest(self, nums, target):
         """

@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# 总结：
+# 1. 首先排序，然后选择第一个数num（三个数中最小的）
+# 2. 然后，在该数右侧数（大于num）中选择另外两个数
+# 3. 另外两个数选择方式分别从两侧开始取（left 和 right）
+# 4. 如果太大，right减小，如果太小，left增大（优化点1）
+# 5. 如果新取的数和上一次一样，直接继续取下一个数（优化点2）
+
 class Solution(object):
     def threeSum(self, nums):
         """
