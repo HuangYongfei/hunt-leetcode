@@ -8,6 +8,15 @@
 # 4. 如果太大，right减小，如果太小，left增大（优化点1）
 # 5. 如果新取的数和上一次一样，直接继续取下一个数（优化点2）
 
+# p.s. (https://discuss.leetcode.com/topic/49475/most-concise-java-solution)
+# The idea is to choose every number as the a. Then find all the b and c so that a+b+c=0.
+# What we need to do next:
+# 1. skip the same a
+# 2. set b as the one next to a and c as the last number
+# 3. if(a+b+c==0) we got one!
+#    if(a+b+c>0) we need to find a smaller c
+#    if(a+b+c<0) we need to find a bigger b
+
 class Solution(object):
     def threeSum(self, nums):
         """
