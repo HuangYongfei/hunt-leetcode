@@ -2,11 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # 总结：
-# 1. 首先排序，然后选择第一个数num（三个数中最小的）
-# 2. 然后，在该数右侧数（大于num）中选择另外两个数
-# 3. 另外两个数选择方式分别从两侧开始取（left 和 right）
-# 4. 如果太大，right减小，如果太小，left增大（优化点1）
-# 5. 如果新取的数和上一次一样，直接继续取下一个数（优化点2）
+# 参考: p15的思想，这里nSum是用递归实现p15中的思想
+
 
 class Solution(object):
     def fourSum(self, nums, target):
@@ -19,6 +16,53 @@ class Solution(object):
             return []
         nums = sorted(nums)
         return nSum(nums, 0, 4, target)
+
+    # https://discuss.leetcode.com/topic/54510/java-solution-16ms-beats-82-37-with-explanation
+    def fourSumOpt(self, nums, target):
+        n = len(nums)
+        if n < 4:
+            return []
+        nums = sorted(nums)
+        res = []
+        l, h = 0, n - 1
+        while l < h and nums[l] + 3 * nums[h] < target:
+            l += 1
+        while l < h and nums[h] + 3 * nums[l] > target:
+            h -= 1
+
+        for i in range(l, h - 2):
+            if nums[i] == nums[i - 1] and i != 0:
+                continue
+
+            h2 = h
+            while h2 >= i + 3:
+                if h2 != h and nums[h2] == nums[h2 + 1]:
+                    h2 -= 1
+                    continue
+                left, right = i + 1, h2 - 1
+                while left < right:
+                    total = nums[i] + nums[left] + nums[right] + nums[h2]
+                    if total == target:
+                        res.append([nums[i], nums[left], nums[right], nums[h2]])
+                        left += 1
+                        right -= 1
+                        # skip all duplicate element.
+                        while left < right and nums[left] == nums[left - 1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right + 1]:
+                            right -= 1
+                    elif total > target:
+                        right -= 1
+                        while left < right and nums[right] == nums[right + 1]:
+                            right -= 1
+                    elif total < target:
+                        left += 1
+                        while left < right and nums[left] == nums[left - 1]:
+                            left += 1
+                h2 -= 1
+        return res
+
+
 
 # https://discuss.leetcode.com/topic/54009/simple-java-solution-for-4-sum-3-sum-2-sum-any-sum
 def nSum(nums, start, n, target):
@@ -40,7 +84,6 @@ def nSum(nums, start, n, target):
             res.append([target])
             break
 
-        temp = []
         for j in nSum(nums, i + 1, n - 1, target - nums[i]):
             j.append(nums[i])
             res.append(j)
@@ -60,5 +103,12 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 if __name__ == '__main__':
     print Solution().fourSum([1, 0, -1, 0, -2, 2], 0)
     print Solution().fourSum([5,5,3,5,1,-5,1,-2], 4)
+    print Solution().fourSum([-1,2,2,-5,0,-1,4], 3)
+    print Solution().fourSum([0, 0, 0, 0], 0)
+
+    print Solution().fourSumOpt([1, 0, -1, 0, -2, 2], 0)
+    print Solution().fourSumOpt([5,5,3,5,1,-5,1,-2], 4)
+    print Solution().fourSumOpt([-1,2,2,-5,0,-1,4], 3) # [[-5,2,2,4],[-1,0,2,2]]
+    print Solution().fourSumOpt([0, 0, 0, 0], 0)
     print 'ok'
 
