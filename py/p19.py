@@ -19,10 +19,9 @@ class Solution(object):
         if not head or n <= 0:
             return head
 
-        pprev = prev = head
+        prev = head
         k = 0
         while prev.next and k < n:
-            pprev = prev
             prev = prev.next
             k += 1
 
@@ -38,13 +37,13 @@ class Solution(object):
         # print('nth %s' % nth_node.val)
 
         # k == 0, 说明长度为1
-        if nth_node == head and k == 0:
-            return []
+        # if nth_node == head and k == 0:
+        #     return []
         # 删除头部
         if nth_node == head and k == n - 1:
             head = head.next
-
-        nth_node.next = nth_node.next.next
+        if nth_node.next:
+            nth_node.next = nth_node.next.next
         return head
 
     # https://leetcode.com/articles/remove-nth-node-end-list/
@@ -53,6 +52,7 @@ class Solution(object):
         dummy.next = head
         first = dummy
         second = dummy
+        # Given n will always be valid.
         for i in range(n + 1):
             first = first.next
         while first:
@@ -100,6 +100,9 @@ if __name__ == '__main__':
 
     disp_list(Solution().removeNthFromEnd(gen_list([1]), 1))
     disp_list(Solution().removeNthFromEnd(gen_list([]), 1))
+
+
+    # disp_list(Solution().removeNthFromEndWithDummy(gen_list([1]), 8))
 
     print('ok')
 
