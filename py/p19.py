@@ -47,6 +47,20 @@ class Solution(object):
         nth_node.next = nth_node.next.next
         return head
 
+    # https://leetcode.com/articles/remove-nth-node-end-list/
+    def removeNthFromEndWithDummy(self, head, n):
+        dummy = ListNode(0)
+        dummy.next = head
+        first = dummy
+        second = dummy
+        for i in range(n + 1):
+            first = first.next
+        while first:
+            first = first.next
+            second = second.next
+        second.next = second.next.next
+        return dummy.next
+
 def gen_list(arr):
     head = None
     prev = None
