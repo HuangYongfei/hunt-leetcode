@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# 总结：
+# 1. 暴力解法。逐个扫描
+# 2. KMP
 class Solution(object):
     def strStr(self, haystack, needle):
         """
