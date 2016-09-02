@@ -9,13 +9,13 @@ class Solution(object):
         :type words: List[str]
         :rtype: List[int]
         """
-        n = len(words)
-        if n == 0:
+        words_len = len(words)
+        if words_len == 0:
             return []
-        l1 = len(s)
+        s_len = len(s)
 
-        l2 = len(words[0])
-        if l2 * n > l1:
+        word_len = len(words[0])
+        if word_len * words_len > s_len:
             return []
 
         res = []
@@ -24,12 +24,16 @@ class Solution(object):
             word_count[word] = word_count.get(word, 0) + 1
 
         # print word_count
-        for i in range(l1 - n*l2 + 1):
+        for i in range(s_len - words_len*word_len + 1):
+            # 记录
             check_count = {}
-            # 记录匹配的单词数
+            # 记录匹配word_count中的单词个数
             count = 0
-            for j in range(n):
-                word = s[i+j*l2:i+j*l2+l2]
+            for j in range(words_len):
+                # 从位置i开始，按找出每个word_len的子串
+                # 如果该子串不在word_count，退出
+                # 如果该子串中出现某个word的次数多于word_count中出现的次数，退出
+                word = s[i+j*word_len:i+j*word_len+word_len]
                 if word_count.get(word):
                     # 子串出现 word 的次数多于在words
                     if check_count.get(word, 0) == word_count[word]:
@@ -39,10 +43,10 @@ class Solution(object):
                 else:
                     break
 
-            # 注意python中， range(j)结束后 j 不会等于n
+            # 注意python中， range(j)结束后 j 不会等于words_len
             # print check_count, j
-            # 匹配了n个
-            if count == n:
+            # 匹配了words_len个
+            if count == words_len:
                 res.append(i)
 
         return res
