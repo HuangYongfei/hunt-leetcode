@@ -64,6 +64,27 @@ class Solution(object):
         # 左边和右边重复计算了两次max_num
         return sum_h1 + sum_h2 - max_num - sum_height
 
+    def trap2(self, height):
+        left, right = 0, len(height) - 1
+        res = 0
+        max_left, max_right = 0, 0
+        while left <= right:
+            # 使用两者的局部最大值作为全局最大值，可以确保操作的方向正确性
+            if height[left] <= height[right]:
+                if height[left] >= max_left:
+                    max_left = height[left]
+                else:
+                    res += max_left - height[left]
+                left += 1
+            else:
+                if height[right] >= max_right:
+                    max_right = height[right]
+                else:
+                    res += max_right - height[right]
+                right -= 1
+
+        return res
+
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -77,5 +98,7 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 if __name__ == '__main__':
     print Solution().trap([0,1,0,2,1,0,1,3,2,1,2,1])  # 6
     print Solution().trap([2,0,2])  # 2
+    print Solution().trap2([0,1,0,2,1,0,1,3,2,1,2,1])  # 6
+    print Solution().trap2([2,0,2])  # 2
     print 'ok'
 
