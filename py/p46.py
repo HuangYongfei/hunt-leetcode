@@ -13,6 +13,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        # nums = sorted(nums); // not necessary
         path = []
         res = []
         self.backtrack(nums, path, res)
@@ -33,6 +34,29 @@ class Solution(object):
             path.pop()
 
 
+    def permute2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # nums = sorted(nums); // not necessary
+        path = []
+        res = []
+        self.backtrack2(nums, path, res, len(nums))
+        return res
+
+    def backtrack2(self, nums, path, res, size):
+        if len(path) == size:
+            # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
+            res.append(path[:])
+
+        for i in range(len(nums)):
+            # element already exists, skip
+            path.append(nums[i])
+            self.backtrack2(nums[:i]+nums[i+1:], path, res, size)
+            path.pop()
+
+
 
 
 import unittest
@@ -46,5 +70,6 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     print Solution().permute([1,2,3])
+    print Solution().permute2([1,2,3])
     print 'ok'
 
