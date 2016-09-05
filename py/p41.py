@@ -23,7 +23,14 @@ class Solution(object):
 
             while nums[i] > 0 and nums[i] <= n and \
             nums[i] != nums[nums[i] - 1]:
-                # 这里有个坑，要注意交换的顺序，这么写会死循环：nums[i], nums[nums[i]-1] = nums[nums[i]-1], nums[i]
+                # 这里有个坑，要注意交换的顺序，这么写是错误的：nums[i], nums[nums[i]-1] = nums[nums[i]-1], nums[i]，它等价于：
+                # temp=nums[i]
+                # nums[i] = nums[nums[i]-1]
+                # nums[nums[i]-1] = temp  （注意这里的下标nums[i]-1已经改变了）
+                # 所以应该是：
+                # temp = nums[nums[i]-1]
+                # nums[nums[i]-1] = nums[i]
+                # nums[i] = temp   (这里的下标i不会改变)
                 nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
 
         for i in range(n):
