@@ -27,12 +27,13 @@ class Solution(object):
 
         # (containing at least one number)
         sub_sum, max_sum = nums[0], nums[0]
-        for val in nums[1:]:
-            if sub_sum + val > val:
-                sub_sum += val
-            else:
-                sub_sum = val
+        for num in nums[1:]:
+            # if sub_sum + num > num:
+            #     sub_sum += num
+            # else:
+            #     sub_sum = num
 
+            sub_sum = max(sub_sum + num, num)
             max_sum = max(sub_sum, max_sum)
 
         return max_sum
