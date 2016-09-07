@@ -13,6 +13,17 @@
 
 # 思路二：
 # https://discuss.leetcode.com/topic/15558/a-concise-c-implementation-based-on-directions
+# 1. 发现如果将向右和向左（水平），向下和向上（竖直）移动的次数合起来看，可以发现在
+#    水平和竖直方向上移动的步数上是连续的，直到其中一个为0退出
+# 2. 引入方向数组dirs和index_dir来移动下标
+# 3. 引入steps数组来作为水平和竖直方向上移动步数的记录
+# 4. p.s. 比如：
+# 0 1 2 3 4 5
+# 6 7 8 9 10
+# 11 12 13 14 15
+# 水平方向为：5(right)，4(left)，3(left)
+# 竖直方向为：2(down)，1(up)，0(quit)
+# 水平或竖直为0后退出
 
 
 class Solution(object):
@@ -21,15 +32,15 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
+        res = []
         m = len(matrix)
         if m == 0:
-            return []
+            return res
 
         n = len(matrix[0])
         if n == 0:
-            return []
+            return res
 
-        res = []
         # 可以构成一圈的次数
         cirs = min(m // 2, n // 2)
         for i in range(0, cirs):
@@ -74,6 +85,38 @@ class Solution(object):
 
         return res
 
+    def spiralOrder2(self, matrix):
+        res = []
+        m = len(matrix)
+        if m == 0:
+            return res
+
+        n = len(matrix[0])
+        if n == 0:
+            return res
+
+        # right, down, left, up，分别代表x，y坐标的移动
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+        # y(right,left), x(down,up)方向移动的初始次数：n, m-1
+        steps = [n, m - 1]
+        index_dir = 0  # index of direction
+        i_r = 0  # initial position
+        i_c = -1
+
+        # steps[index%2]分别得到(right,left), (down,up)方向移动的次数
+        while steps[index_dir%2]:
+            for k in range(steps[index_dir%2]):
+                i_r += dirs[index_dir][0]
+                i_c += dirs[index_dir][1]
+                res.append(matrix[i_r][i_c])
+
+            # y(right,left), x(down,up)方向移动的次数减一
+            steps[index_dir%2] -= 1
+            # 改变方向
+            index_dir = (index_dir + 1) % 4
+
+        return res
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -96,5 +139,18 @@ if __name__ == '__main__':
                                 ])
     print Solution().spiralOrder([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]])
     print Solution().spiralOrder([[1,2,3,4,5,6,7,8,9,10]])
+
+    print '==solutin2=='
+    print Solution().spiralOrder2([
+                                 [ 1, 2, 3 ],
+                                 [ 4, 5, 6 ],
+                                 [ 7, 8, 9 ]
+                                ])
+    print Solution().spiralOrder2([
+                                 [ 1, 2, 3 ],
+                                 [ 4, 5, 6 ]
+                                ])
+    print Solution().spiralOrder2([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]])
+    print Solution().spiralOrder2([[1,2,3,4,5,6,7,8,9,10]])
     print 'ok'
 
