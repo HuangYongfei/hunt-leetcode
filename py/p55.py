@@ -14,7 +14,7 @@
 # 2. dp(top-down)
 # 3. dp(bottom-up)
 # 4. greedy
-# 5. 依次找出每个位置下，可达的最大位置
+# 5. greedy: 依次找出每个位置下，可达的最大位置
 
 class Solution(object):
     def canJump(self, nums):
