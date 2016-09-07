@@ -52,7 +52,7 @@ class Solution(object):
             return True if memo[pos] == 1 else False
 
         furtest_jump = min(pos+nums[pos], size - 1)
-        for next_pos in range(pos, furtest_jump+1):
+        for next_pos in range(pos+1, furtest_jump+1):
             if self.dp_top_down(nums, next_pos, size, memo):
                 # good
                 memo[pos] = 1
@@ -62,6 +62,27 @@ class Solution(object):
         memo[pos] = 2
         return False
 
+
+    def canJump3(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        return self.dp_bottom_up(nums)
+
+    def dp_bottom_up(self, nums):
+        size = len(nums)
+        memo = [0] * size
+        memo[size-1] = 1
+
+        for i in range(size-2, -1, -1):
+            furtest_jump = min(i+nums[i], size-1)
+            for j in range(i+1, furtest_jump+1):
+                if memo[j] == 1:
+                    memo[i] = 1
+                    break
+
+        return memo[0] == 1
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -77,9 +98,14 @@ if __name__ == '__main__':
     print Solution().canJump([2,3,1,1,4])
     print Solution().canJump([3,2,1,0,4])
 
-    print '==dp top dowm=='
+    print '==dp top down=='
     print Solution().canJump2([2,3,1,1,4])
     print Solution().canJump2([3,2,1,0,4])
+
+
+    print '==dp bottom up=='
+    print Solution().canJump3([2,3,1,1,4])
+    print Solution().canJump3([3,2,1,0,4])
 
     print 'ok'
 
