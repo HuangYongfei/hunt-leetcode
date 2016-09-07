@@ -84,6 +84,23 @@ class Solution(object):
 
         return memo[0] == 1
 
+    def canJump4(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        return self.greedy(nums)
+
+    def greedy(self, nums):
+        size = len(nums)
+        left_most_good = size - 1
+
+        for i in range(size-1, -1, -1):
+            if i + nums[i] >= left_most_good:
+                left_most_good = i
+
+        return left_most_good == 0
+
 import unittest
 class TestSolution(unittest.TestCase):
     def test_demo(self):
@@ -106,6 +123,10 @@ if __name__ == '__main__':
     print '==dp bottom up=='
     print Solution().canJump3([2,3,1,1,4])
     print Solution().canJump3([3,2,1,0,4])
+
+    print '==greedy=='
+    print Solution().canJump4([2,3,1,1,4])
+    print Solution().canJump4([3,2,1,0,4])
 
     print 'ok'
 
