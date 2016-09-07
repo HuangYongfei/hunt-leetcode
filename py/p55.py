@@ -14,6 +14,7 @@
 # 2. dp(top-down)
 # 3. dp(bottom-up)
 # 4. greedy
+# 5. 依次找出每个位置下，可达的最大位置
 
 class Solution(object):
     def canJump(self, nums):
@@ -101,6 +102,23 @@ class Solution(object):
 
         return left_most_good == 0
 
+    def canJump5(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        furtest = 0
+        size = len(nums)
+        for i in range(size):
+            # 在 i 这个位置，其前面最远只能到 furtest < i
+            # 说明在 i 之前到达不了 i
+            if i > furtest:
+                return False
+            furtest = max(i+nums[i], furtest)
+            # if furtest >= size - 1:
+            #     return True
+        return True
+
 import unittest
 class TestSolution(unittest.TestCase):
     def test_demo(self):
@@ -127,6 +145,11 @@ if __name__ == '__main__':
     print '==greedy=='
     print Solution().canJump4([2,3,1,1,4])
     print Solution().canJump4([3,2,1,0,4])
+
+
+    print '==furtest=='
+    print Solution().canJump5([2,3,1,1,4])
+    print Solution().canJump5([3,2,1,0,4])
 
     print 'ok'
 
