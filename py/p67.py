@@ -5,7 +5,7 @@
 # Given two binary strings, return their sum (also a binary string).
 
 # 总结：
-#
+# 相关问题： p2
 
 class Solution(object):
     def addBinary(self, a, b):
