@@ -55,6 +55,38 @@ class Solution(object):
             j += dir_j
         return res
 
+    def generateMatrix3(self, n):
+        # 正确创建多维数组的方式
+        res = [[0] * n for _ in range(n)]
+        start, end = 0, n
+        k = 1
+        while k < n*n:
+            # right: [start][start, end-2]
+            for i in range(start, end-1):
+                res[start][i] = k
+                k += 1
+            # down: [start,end-2][end-1]
+            for i in range(start, end-1):
+                res[i][end-1] = k
+                k += 1
+            # left: [end-1][end-1, start+1]
+            for i in range(end-1, start, -1):
+                res[end-1][i] = k
+                k += 1
+            # up:
+            for i in range(end-1, start, -1):
+                res[i][start] = k
+                k += 1
+
+            start += 1
+            end -= 1
+
+        if n % 2:
+            res[n//2][n//2] = n*n
+
+        return res
+
+
 import unittest
 class TestSolution(unittest.TestCase):
     def test_demo(self):
@@ -73,5 +105,10 @@ if __name__ == '__main__':
     print Solution().generateMatrix2(3)
     print Solution().generateMatrix2(0)
     print Solution().generateMatrix2(2)
+
+    print Solution().generateMatrix3(3)
+    print Solution().generateMatrix3(0)
+    print Solution().generateMatrix3(2)
+    print Solution().generateMatrix3(4)
     print 'ok'
 
