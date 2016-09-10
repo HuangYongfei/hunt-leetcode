@@ -18,7 +18,6 @@ class Solution(object):
         # 正确创建多维数组的方式
         res = [[0] * n for i in range(n)]
 
-
         # right, down, left, up，分别代表x，y坐标的移动
         dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
@@ -43,6 +42,19 @@ class Solution(object):
 
         return res
 
+    def generateMatrix2(self, n):
+        # 正确创建多维数组的方式
+        res = [[0] * n for _ in range(n)]
+        i, j, dir_i, dir_j = 0, 0, 0, 1
+        for k in range(1, n*n+1):
+            res[i][j] = k
+            # 右转，原理同方法1中使用dirs一样
+            if res[(i+dir_i)%n][(j+dir_j)%n]:
+                dir_i, dir_j = dir_j, -dir_i
+            i += dir_i
+            j += dir_j
+        return res
+
 import unittest
 class TestSolution(unittest.TestCase):
     def test_demo(self):
@@ -57,5 +69,9 @@ if __name__ == '__main__':
     print Solution().generateMatrix(3)
     print Solution().generateMatrix(0)
     print Solution().generateMatrix(2)
+
+    print Solution().generateMatrix2(3)
+    print Solution().generateMatrix2(0)
+    print Solution().generateMatrix2(2)
     print 'ok'
 
