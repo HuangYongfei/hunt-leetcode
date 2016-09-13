@@ -28,6 +28,16 @@ class Solution(object):
 
         return res[m-1][n-1]
 
+    def uniquePathsOptSpace(self, m, n):
+        # 由于计算res[i][j]只需要用到res[i-1]和res[i]行
+        # 因此memo只需要min(m,n)，这里直接选取n
+        res = [1] * n
+        for i in range(1, m):
+            for j in range(1, n):
+                res[j] = res[j-1] + res[j]
+
+        return res[-1]
+
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -40,5 +50,13 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     print Solution().uniquePaths(1, 2)
+    print Solution().uniquePathsOptSpace(1, 2)
+    print Solution().uniquePaths(2, 1)
+    print Solution().uniquePathsOptSpace(2, 1)
+
+    print Solution().uniquePaths(4, 5)
+    print Solution().uniquePathsOptSpace(4, 5)
+
+
     print 'ok'
 
