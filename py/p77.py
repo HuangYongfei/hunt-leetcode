@@ -33,6 +33,17 @@ class Solution(object):
             self.backtrace(n, k, i+1, path, res)
             path.pop()
 
+    def backtrace2(self, n, k, start, path, res):
+        if len(path) == k:
+            # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
+            res.append(path[:])
+            return
+
+        for i in range(start, n-k+1+1):
+            path.append(i)
+            self.backtrace(n, k, i+1, path, res)
+            path.pop()
+
     # itertools
     def combine2(self, n, k):
         return [each for each in itertools.combinations(range(1, n + 1), k)]
