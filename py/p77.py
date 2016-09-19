@@ -33,7 +33,9 @@ class Solution(object):
             self.backtrace(n, k, i+1, path, res)
             path.pop()
 
-
+    # itertools
+    def combine2(self, n, k):
+        return [each for each in itertools.combinations(range(1, n + 1), k)]
 
 import unittest
 class TestSolution(unittest.TestCase):
@@ -46,6 +48,6 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     print Solution().combine(4, 2)
-    print Solution().combine(20, 16)
+    # print Solution().combine(20, 16)
     print 'ok'
 
