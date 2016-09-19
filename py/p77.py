@@ -17,9 +17,10 @@ class Solution(object):
         """
         path = []
         res = []
-        self.backtrace2(n, k, 1, path, res)
+        self.backtrace(n, k, 1, path, res)
         return res
 
+    # TLE
     def backtrace(self, n, k, start, path, res):
         if len(path) == k:
             # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
@@ -33,6 +34,7 @@ class Solution(object):
             self.backtrace(n, k, i+1, path, res)
             path.pop()
 
+    # 剪枝：剩余的数不够时及时返回
     def backtrace2(self, n, k, start, path, res):
         if len(path) == k:
             # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
@@ -47,6 +49,7 @@ class Solution(object):
             self.backtrace2(n, k, i+1, path, res)
             path.pop()
 
+    # 剪枝：同2
     def backtrace3(self, n, k, start, path, res):
         if 0 == k:
             # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
@@ -59,7 +62,6 @@ class Solution(object):
             path.pop()
 
     # itertools
-
     def combine2(self, n, k):
         import itertools
         return [each for each in itertools.combinations(range(1, n + 1), k)]
