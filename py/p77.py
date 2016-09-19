@@ -1,36 +1,36 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# 77. Combinations
+# Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+
+# 总结：
 # 相关问题：p39&p40, p46&p47, p78&p90, p131, p77
 
 
 class Solution(object):
-    def combinationSum2(self, candidates, target):
+    def combine(self, n, k):
         """
-        :type candidates: List[int]
-        :type target: int
+        :type n: int
+        :type k: int
         :rtype: List[List[int]]
         """
-        candidates = sorted(candidates)
-        # candidates.sort()
-        res = []
         path = []
-        self.dfs_com(candidates, 0, target, path, res)
+        res = []
+        self.backtrace(n, k, 1, path, res)
         return res
 
-    def dfs_com(self, candidates, cur, target, path, res):
-        if target == 0:
+    def backtrace(self, n, k, start, path, res):
+        if len(path) == k:
             # 使用切片复制数组，否则只是path的引用，会随path的改变而改变
             res.append(path[:])
             return
-        if target < 0:
-            return
 
-        for i in range(cur, len(candidates)):
-            if i > cur and candidates[i] == candidates[i-1]:
-                continue
-            path.append(candidates[i])
-            self.dfs_com(candidates, i + 1, target - candidates[i], path, res)
+        print start
+        for i in range(start, n+1):
+            path.append(i)
+            print i, path
+            self.backtrace(n, k, i+1, path, res)
             path.pop()
 
 
@@ -45,6 +45,7 @@ suite = unittest.TestLoader().loadTestsFromTestCase(TestSolution)
 unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
-    print Solution().combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)
+    print Solution().combine(4, 2)
+    print Solution().combine(20, 16)
     print 'ok'
 

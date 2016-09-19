@@ -5,7 +5,8 @@
 # Given a collection of numbers that might contain duplicates, return all possible unique permutations.
 
 # 总结：(https://discuss.leetcode.com/topic/46162/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partioning)
-# 相关问题：p39&p40, p46&p47, p78&p90, p131
+# 相关问题：p39&p40, p46&p47, p78&p90, p131, p77
+
 
 class Solution(object):
     def permuteUnique(self, nums):
