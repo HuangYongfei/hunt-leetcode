@@ -31,6 +31,11 @@ class Solution(object):
             self.backtrack(nums, i+1, n, path, res)
             path.pop()
 
+    def subsets_iter(self, nums):
+        res = [[]]
+        for num in sorted(nums):
+            res += [item+[num] for item in res]
+        return res
 
 
 import unittest
@@ -44,5 +49,6 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     print Solution().subsets([1, 2, 3])
+    print Solution().subsets_iter([1, 2, 3])
     print 'ok'
 
