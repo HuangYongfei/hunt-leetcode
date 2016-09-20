@@ -21,8 +21,10 @@ class Solution(object):
         return res
 
     def backtrack(self, nums, start, n, path, res):
-        if len(path) <= n:
-            res.append(path[:])
+        # no need to if
+        # if len(path) <= n:
+            # res.append(path[:])
+        res.append(path[:])
 
         for i in range(start, n):
             path.append(nums[i])
