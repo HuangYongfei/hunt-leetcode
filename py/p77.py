@@ -6,6 +6,10 @@
 
 # 总结：
 # 相关问题：p39&p40, p46&p47, p78&p90, p131, p77
+# 参考：
+# 1. https://discuss.leetcode.com/topic/14626/1-liner-3-liner-4-liner/2
+# 2. https://discuss.leetcode.com/topic/3943/dp-for-the-problem
+
 
 
 class Solution(object):
@@ -65,6 +69,27 @@ class Solution(object):
     def combine2(self, n, k):
         import itertools
         return [each for each in itertools.combinations(range(1, n + 1), k)]
+
+    # iter itself
+    def combine3(self, n, k):
+        if k == 0:
+            return [[]]
+        return [pre + [i] for i in range(1, n+1) for pre in self.combine3(i-1, k-1)]
+
+    # iterative
+    def combine4(self, n, k):
+        combs = [[]]
+        for _ in range(k):
+            print combs
+            combs = [[i] + c for c in combs for i in range(1, c[0] if c else n+1)]
+        return combs
+
+    # reduce
+    def combine5(self, n, k):
+        return reduce(lambda C, _: [[i]+c for c in C for i in range(1, c[0] if c else n+1)], range(k), [[]])
+
+
+
 
 import unittest
 class TestSolution(unittest.TestCase):
