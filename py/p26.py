@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# 26. Remove Duplicates from Sorted Array
+# Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
+# Do not allocate extra space for another array, you must do this in place with constant memory.
+# It doesn't matter what you leave beyond the new length.
 # 总结:
+# # relates to: p80
 # 1. 相邻的两个数字不相等，计数加一
 # 2. 同时在对应位置的数字替换为新的值（有点类似插入排序的味道）
 
