@@ -37,6 +37,14 @@ class Solution(object):
                     count += 1
         return count
 
+    def removeDuplicatesOpt(self, nums):
+        i = 0
+        for n in nums:
+            if i < 2 or n != nums[i-2]:
+                nums[i] = n
+                i += 1
+        return i
+
 import unittest
 class TestSolution(unittest.TestCase):
     def test_demo(self):
@@ -50,6 +58,9 @@ if __name__ == '__main__':
     print Solution().removeDuplicates([1,1,2])
     print Solution().removeDuplicates([])
     print Solution().removeDuplicates([1,1,1,2,2,3])
+    print Solution().removeDuplicatesOpt([1,1,2])
+    print Solution().removeDuplicatesOpt([])
+    print Solution().removeDuplicatesOpt([1,1,1,2,2,3])
 
     print 'ok'
 
