@@ -23,18 +23,11 @@ class Solution(object):
         n = len(nums)
         if n <= 1:
             return n
-        count = 1
-        dup_times = 1
-        for i in range(1, n):
-            if nums[i] != nums[i-1]:
+        count = 2
+        for i in range(2, n):
+            if nums[i] != nums[count-2]:
                 nums[count] = nums[i]
                 count += 1
-                dup_times = 1
-            else:
-                dup_times += 1
-                if dup_times <= 2:
-                    nums[count] = nums[i]
-                    count += 1
         return count
 
     def removeDuplicatesOpt(self, nums):
