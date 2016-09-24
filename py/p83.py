@@ -31,6 +31,16 @@ class Solution(object):
         first.next = None
         return dummy.next
 
+    def deleteDuplicates2(self, head):
+        current = head
+        while current and current.next:
+            if current.val == current.next.val:
+                current.next = current.next.next
+            else:
+                current = current.next
+
+        return head
+
 
 def gen_list(arr):
     head = None
@@ -72,7 +82,14 @@ if __name__ == '__main__':
     disp_list(Solution().deleteDuplicates(gen_list([0,0,0,0,0])))
 
 
-    # disp_list(Solution().removeNthFromEndWithDummy(gen_list([1]), 8))
+    disp_list(Solution().deleteDuplicates2(gen_list([1])))
+    disp_list(Solution().deleteDuplicates2(gen_list([1, 1])))
+    disp_list(Solution().deleteDuplicates2(gen_list([1, 2, 3, 4, 5])))
+    disp_list(Solution().deleteDuplicates2(gen_list([1, 1, 2])))
+    disp_list(Solution().deleteDuplicates2(gen_list([1, 2, 2])))
+    disp_list(Solution().deleteDuplicates2(gen_list([1, 2, 2, 2, 3, 4, 4, 5, 5])))
+    disp_list(Solution().deleteDuplicates2(gen_list([])))
+    disp_list(Solution().deleteDuplicates2(gen_list([0,0,0,0,0])))
 
     print('ok')
 
