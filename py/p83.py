@@ -3,6 +3,9 @@
 
 from __future__ import print_function
 
+# 83. Remove Duplicates from Sorted List
+# Given a sorted linked list, delete all duplicates such that each element appear only once.
+
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
