@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function, unicode_literals, absolute_import
 
 # 总结：
 #
@@ -17,5 +18,5 @@ suite = unittest.TestLoader().loadTestsFromTestCase(TestSolution)
 unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
-    print 'ok'
+    print('ok')
 
