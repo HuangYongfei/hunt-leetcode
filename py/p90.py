@@ -18,7 +18,8 @@ class Solution(object):
         res = []
         n = len(nums)
         nums = sorted(nums)
-        self.backtrack(nums, 0, n, path, res)
+        # self.backtrack(nums, 0, n, path, res)
+        self.backtrack2(nums, 0, n, path, res)
         return res
 
     def backtrack(self, nums, start, n, path, res):
@@ -29,6 +30,21 @@ class Solution(object):
             res.append(path[:])
 
         for i in range(start, n):
+            path.append(nums[i])
+            self.backtrack(nums, i+1, n, path, res)
+            path.pop()
+
+    def backtrack2(self, nums, start, n, path, res):
+        # no need to if
+        # if len(path) <= n:
+            # res.append(path[:])
+
+        res.append(path[:])
+
+        for i in range(start, n):
+            #  avoid duplicates
+            if i > start and nums[i] == nums[i-1]:
+                continue
             path.append(nums[i])
             self.backtrack(nums, i+1, n, path, res)
             path.pop()
