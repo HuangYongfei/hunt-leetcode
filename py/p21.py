@@ -56,6 +56,17 @@ class Solution(object):
 
         return head
 
+    def mergeTwoLists2(self, l1, l2):
+        dummy = tail = ListNode(None)
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next, tail, l1 = l1, l1, l1.next
+            else:
+                tail.next, tail, l2 = l2, l2, l2.next
+
+        tail.next = l1 or l2
+        return dummy.next
+
 
 def gen_list(arr):
     prev = head = None
