@@ -23,10 +23,12 @@ class Solution(object):
         dummy.next = head
         first = second = dummy
         list_len = 0
+        # 求出链表长度
         while first.next:
             first = first.next
             list_len += 1
 
+        # first移动k部
         if list_len:
             k = k % list_len
         for i in xrange(k):
@@ -34,16 +36,43 @@ class Solution(object):
                 first = dummy
             first = first.next
 
+        # 移动fisrt和second，直到链表尾部
+        # 此时second指向旋转前一位置，second.next指向旋转的位置
         while first and first.next:
             first = first.next
             second = second.next
 
+        # 旋转链表
         if second and second.next and second != dummy:
             first.next = dummy.next
             dummy.next = second.next
             second.next = None
 
         return dummy.next
+
+    def rotateRight2(self, head, k):
+        if not k or not head:
+            return head
+
+        # 求出链表长度，并记录最后一个节点last
+        list_len, curr, last = 0, head, None
+        while curr:
+            last, curr, list_len = curr, curr.next, list_len + 1
+
+
+        k %= list_len
+        if k:
+            # 找出要旋转位置的curr, 及其前一个位置prev
+            k = list_len - k
+            prev, curr = None, head
+            for _ in range(k):
+                prev, curr = curr, curr.next
+
+            prev.next = None
+            last.next, head = head, curr
+
+        return head
+
 
 
 def gen_list(arr):

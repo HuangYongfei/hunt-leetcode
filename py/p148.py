@@ -23,6 +23,7 @@ class Solution(object):
         if not head or not head.next:
             return head
 
+        # 归并的思想：分治法。从中间分成两部分，然后再合并
         # p1 move 1 step every time, p2 move 2 step every time, pre record node before p1
         p1 = p2 = pre = head
         while p2 and p2.next:
