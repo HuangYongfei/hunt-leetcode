@@ -28,12 +28,35 @@ class Solution(object):
 
         for i in range(n - 1, -1, -1):
             for j in range(i, n):
+                # j - i < 3: first initialize the one and two letters palindromes
                 dp[i][j] = s[i] == s[j] and (j - i < 3 or dp[i+1][j-1])
 
                 if dp[i][j] and (not res or j - i + 1 > len(res)):
                     res = s[i:j+1]
 
         return res
+
+    # https://leetcode.com/articles/longest-palindromic-substring/
+    def longestPalindrome2(self, s):
+        def expandAroundCenter(s, left, right):
+            l, r, n = left, right, len(s)
+            while l >= 0 and r < n and s[l] == s[r]:
+                l -= 1
+                r += 1
+            return r - l - 1
+
+
+        start = end = 0
+        for i in range(len(s)):
+            l1 = expandAroundCenter(s, i, i)
+            l2 = expandAroundCenter(s, i, i+1)
+            l = max(l1, l2)
+            if l > end - start:
+                start = i - (l - 1) // 2
+                end = i + l // 2
+
+        return s[start:end+1]
+
 
 
 import unittest
@@ -49,5 +72,8 @@ if __name__ == '__main__':
     print(Solution().longestPalindrome('abc'))
     print(Solution().longestPalindrome('abba'))
     print(Solution().longestPalindrome('abbaccab'))
+    print(Solution().longestPalindrome2('abc'))
+    print(Solution().longestPalindrome2('abba'))
+    print(Solution().longestPalindrome2('abbaccab'))
     print('ok')
 
