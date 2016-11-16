@@ -7,11 +7,12 @@ from __future__ import print_function, unicode_literals, absolute_import
 
 # 总结：
 # 层次遍历： BFS，借用队列
-# 同 p107
+# 同 p107, p103
 
 
 # Definition for a binary tree node.
 class TreeNode(object):
+
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -19,6 +20,7 @@ class TreeNode(object):
 
 
 class Solution(object):
+
     def levelOrder(self, root):
         """
         :type root: TreeNode
@@ -49,12 +51,16 @@ class Solution(object):
         ans, level = [], [root]
         while root and level:
             ans.append([node.val for node in level])
-            level = [child for node in level for child in (node.left, node.right) if child]
+            level = [child for node in level for child in (
+                node.left, node.right) if child]
         return ans
 
 
 import unittest
+
+
 class TestSolution(unittest.TestCase):
+
     def test_demo(self):
         self.assertEqual(1, 1)
         self.assertTrue(True)
@@ -64,4 +70,3 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     print('ok')
-
