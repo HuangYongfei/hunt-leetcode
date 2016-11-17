@@ -9,15 +9,19 @@ from __future__ import print_function
 # You must do this in-place without altering the nodes' values.
 # For example,
 # Given {1,2,3,4}, reorder it to {1,4,2,3}.
+# relates to: p206, p21, p108&p109
 
 
 # Definition for singly-linked list.
 class ListNode(object):
+
     def __init__(self, x):
         self.val = x
         self.next = None
 
+
 class Solution(object):
+
     def reorderList(self, head):
         """
         :type head: ListNode
@@ -33,13 +37,14 @@ class Solution(object):
             slow = slow.next
             fast = fast.next.next
 
-        # 链表反转参考
+        # 链表反转参考: p206
         # reverse the second half in-place
         pre, node = None, slow
         while node:
             pre, node.next, node = node, pre, node.next
 
-        # Merge in-place; Note : the last node of "first" and "second" are the same
+        # Merge in-place; Note : the last node of "first" and "second" are the
+        # same
         first, second = head, pre
         while second.next:
             first.next, first = second, first.next
@@ -67,7 +72,10 @@ def disp_list(l):
     print('\n')
 
 import unittest
+
+
 class TestSolution(unittest.TestCase):
+
     def test_demo(self):
         self.assertEqual(1, 1)
         self.assertTrue(True)
@@ -86,8 +94,6 @@ if __name__ == '__main__':
     disp_list(Solution().removeNthFromEnd(gen_list([1]), 1))
     disp_list(Solution().removeNthFromEnd(gen_list([]), 1))
 
-
     # disp_list(Solution().removeNthFromEndWithDummy(gen_list([1]), 8))
 
     print('ok')
-
