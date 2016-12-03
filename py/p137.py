@@ -21,6 +21,20 @@ class Solution(object):
         res = sum(res) * 3 - sum(nums)
         return res // 2
 
+    def singleNumber2(self, nums):
+        res = 0
+        for i in range(32):
+            count = 0
+            # 将每个整数的第 i 为相加
+            for num in nums:
+                count += (num >> i) & 1
+            rem = count % 3
+            if i == 31 and rem:
+                res -= 1 << 31
+            else:
+                res |= rem * (1 << i)
+        return res
+
 import unittest
 
 
